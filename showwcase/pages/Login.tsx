@@ -10,18 +10,13 @@ const Flex = styled.div`
   flex-direction: column;
   align-items: center;
   height: 100vh;
+  padding: 10px;
 `;
 
 const Login = () => {
   const router = useRouter();
 
-  const [name, setName] = useState("");
-
-  //This function will be called when the user click "Enter" button
-  const onClick = () => {
-    localStorage.setItem("name", name);
-    router.push("/education-dashboard");
-  };
+  const [name, setName] = useState<string>("");
 
   //To get the name value saved in the local storage if any
   useEffect(() => {
@@ -32,13 +27,20 @@ const Login = () => {
     }
   }, []);
 
+  //This function will be called when the user click "Enter" button
+  const onClick = () => {
+    localStorage.setItem("name", name);
+    router.push("/education-dashboard");
+  };
+
   //On name value change
-  const onNameChange = (e) => {
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setName(e.target.value);
   };
 
-  const onEnterClick = (e) => {
+  //To detect enter key
+  const onEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onClick();
     }
@@ -53,16 +55,15 @@ const Login = () => {
         <div className="text-lg text-blue-500">
           Type your name and click &quot;Enter&quot; below to begin
         </div>
-        <div className="py-2">
+        <div className="flex justify-center py-2">
           <InputCustom
             value={name}
             onChange={onNameChange}
             onKeyDown={onEnterClick}
           />
         </div>
-        <div className="space-x-2">
+        <div className="flex items-center justify-center space-x-2">
           <CustomButton label="Enter" onClick={() => onClick()} />
-
           <span className="text-gray-500">↵</span>
         </div>
       </div>

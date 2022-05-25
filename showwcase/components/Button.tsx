@@ -1,5 +1,6 @@
 type ButtonProps = {
   label: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const CustomButton = ({ label, ...props }: ButtonProps) => {
