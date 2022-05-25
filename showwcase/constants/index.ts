@@ -10,10 +10,10 @@ export const SAMPLE_EDUCATION_LIST = [
   },
   {
     degree: "diploma",
-    field: "Computer",
-    grade: "9.2",
+    field: "Computer science",
+    grade: "7.2",
     university: "SSM Engineering College",
-    achivements: ["Winner of i3", "Placement Cell co-ordinater"],
+    achivements: ["Startup co-ordinate", "Placement Cell co-ordinater"],
     startDate: new Date(),
     endDate: new Date(),
   },

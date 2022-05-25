@@ -32,7 +32,9 @@ const EducationDashboard = () => {
     SAMPLE_EDUCATION_LIST
   );
 
-  const [selectedEducation, setSelectedEducation] = useState<Education>();
+  const [selectedEducation, setSelectedEducation] = useState<Education>(
+    SAMPLE_EDUCATION_LIST[0]
+  );
 
   useEffect(() => {
     if (educationList.length > 0) {

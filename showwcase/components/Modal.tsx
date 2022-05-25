@@ -6,8 +6,8 @@ import useDebounce from "./useDebounce";
 import InputCustom from "./Input";
 import SelectCustom from "./Select";
 import CustomButton from "./Button";
-import CustomDatePicker from "./DatePicker";
 import { Institution, Education, EducationItems } from "../types";
+import ReactDatePicker from "react-datepicker";
 
 const customStyles = {
   content: {
@@ -25,7 +25,7 @@ const customStyles = {
 
 type ModalProps = {
   isModalOpen: boolean;
-  changeModalState: Function;
+  changeModalState: any;
   onModalSubmit: Function;
 };
 
@@ -49,7 +49,7 @@ const EducationModal = ({
   const [achivements, setAchivements] = useState<string[]>([]);
 
   const fetcher = (...args: any) =>
-    fetch(...args).then((res) => {
+    fetch(args).then((res) => {
       return res.json();
     });
 
@@ -163,7 +163,7 @@ const EducationModal = ({
         <div className="flex justify-between">
           <label>Start Date</label>
           <div>
-            <CustomDatePicker
+            <ReactDatePicker
               selected={startDate}
               onChange={(date: Date) => setStartDate(date)}
               customInput={<InputCustom></InputCustom>}
@@ -173,7 +173,7 @@ const EducationModal = ({
         <div className="flex justify-between">
           <label>End Date</label>
           <div>
-            <CustomDatePicker
+            <ReactDatePicker
               selected={endDate}
               onChange={(date: Date) => setEndDate(date)}
               customInput={<InputCustom />}
