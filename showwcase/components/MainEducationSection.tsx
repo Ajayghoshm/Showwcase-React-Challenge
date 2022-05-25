@@ -24,6 +24,12 @@ const MainComponent = ({ selectedEducation }: MainComponenrProps) => {
               <span>{selectedEducation.university}</span>
             </div>
             <div className="space-x-1 text-sm font-semibold">
+              {selectedEducation.field}
+            </div>
+            <div className="space-x-1 text-sm font-semibold">
+              {selectedEducation.grade}
+            </div>
+            <div className="space-x-1 text-sm font-semibold">
               <span>
                 {dayjs(selectedEducation.startDate).format("DD/MM/YYYY")}
               </span>

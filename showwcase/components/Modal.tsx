@@ -7,14 +7,14 @@ import InputCustom from "./Input";
 import SelectCustom from "./Select";
 import CustomButton from "./Button";
 import CustomDatePicker from "./DatePicker";
-import { Institution } from "../types";
+import { Institution, Education, EducationItems } from "../types";
 
 const customStyles = {
   content: {
     top: "50%",
     left: "50%",
     right: "auto",
-    height: "50%",
+    height: "70%",
     width: "50%",
     bottom: "auto",
     marginRight: "-50%",
@@ -34,9 +34,14 @@ const EducationModal = ({
   changeModalState,
   onModalSubmit,
 }: ModalProps) => {
-  const [degree, setDegree] = useState<string>();
+  const [degree, setDegree] = useState<string>("");
+  const [field, setField] = useState<string>("");
+  const [grade, setGrade] = useState<string>("");
   const [typedInputValue, setTypedInputValue] = useState<string>();
-  const [selectedInstitue, setSelectedInstitute] = useState<Institution>();
+  const [selectedInstitue, setSelectedInstitute] = useState<Institution>({
+    label: "",
+    value: "",
+  });
   const [selectOptions, setSelectOptions] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
@@ -98,8 +103,10 @@ const EducationModal = ({
   };
 
   const onsubmit = () => {
-    let currentEducationModal = {
+    let currentEducationModal: Education = {
       degree: degree,
+      field: field,
+      grade: grade,
       university: selectedInstitue?.label,
       achivements: achivements,
       startDate: startDate,
@@ -113,6 +120,9 @@ const EducationModal = ({
       style={customStyles}
       onRequestClose={changeModalState}
     >
+      <div className="flex justify-center p-4 text-xl font-semibold">
+        Add new Education
+      </div>
       <div className="w-full space-y-4">
         <div className="flex justify-between">
           <label>Degree</label>
@@ -120,6 +130,24 @@ const EducationModal = ({
             value={degree}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setDegree(e.target.value)
+            }
+          ></InputCustom>
+        </div>
+        <div className="flex justify-between">
+          <label>Field of Study</label>
+          <InputCustom
+            value={field}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setField(e.target.value)
+            }
+          ></InputCustom>
+        </div>
+        <div className="flex justify-between">
+          <label>Grade</label>
+          <InputCustom
+            value={grade}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setGrade(e.target.value)
             }
           ></InputCustom>
         </div>
@@ -180,7 +208,7 @@ const EducationModal = ({
             <span className="text-gray-500">↵</span>
           </div>
         </div>
-        <div>
+        <div className="flex justify-end">
           <CustomButton label="Submit" onClick={() => onsubmit()} />
         </div>
       </div>

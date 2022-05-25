@@ -1,5 +1,7 @@
 export interface Education {
   degree: string;
+  field: string;
+  grade: string;
   university: string;
   achivements: Array<string>;
   startDate: Date;
