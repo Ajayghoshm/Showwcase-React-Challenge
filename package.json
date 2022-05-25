@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/react-datepicker": "^4.4.1",
+    "@types/react-modal": "^3.13.1"
+  }
+}

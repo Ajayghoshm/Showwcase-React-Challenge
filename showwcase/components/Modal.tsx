@@ -1,13 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Select from "react-select";
 import useSWR from "swr";
 import useDebounce from "./useDebounce";
 import InputCustom from "./Input";
 import SelectCustom from "./Select";
 import CustomButton from "./Button";
+import CustomDatePicker from "./DatePicker";
+import { Institution } from "../types";
 
 const customStyles = {
   content: {
@@ -23,17 +23,27 @@ const customStyles = {
   },
 };
 
-const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
-  const [typedInputValue, setTypedInputValue] = useState<string>();
-  const [selectedInstitue, setSelectedInstitute] = useState();
-  const [selectOptions, setSelectOptions] = useState([]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [achivements, setAchivements] = useState([]);
-  const [achivementInputValue, setAchivementValue] = useState<string>();
-  const [degree, setDegree] = useState();
+type ModalProps = {
+  isModalOpen: boolean;
+  changeModalState: Function;
+  onModalSubmit: Function;
+};
 
-  const fetcher = (...args) =>
+const EducationModal = ({
+  isModalOpen,
+  changeModalState,
+  onModalSubmit,
+}: ModalProps) => {
+  const [degree, setDegree] = useState<string>();
+  const [typedInputValue, setTypedInputValue] = useState<string>();
+  const [selectedInstitue, setSelectedInstitute] = useState<Institution>();
+  const [selectOptions, setSelectOptions] = useState<string[]>([]);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [achivementInputValue, setAchivementValue] = useState<string>();
+  const [achivements, setAchivements] = useState<string[]>([]);
+
+  const fetcher = (...args: any) =>
     fetch(...args).then((res) => {
       return res.json();
     });
@@ -47,14 +57,14 @@ const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
     fetcher
   );
 
-  const onInstituteSelect = (value) => {
+  const onInstituteSelect = (value: Institution) => {
     setSelectedInstitute(value);
   };
 
   useEffect(() => {
     console.debug("data", data);
     if (data && data.length !== 0) {
-      let labeledData = data.map((item) => {
+      let labeledData = data.map((item: any) => {
         return { label: item.name, value: item.name };
       });
       setSelectOptions(labeledData);
@@ -75,7 +85,7 @@ const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
     setAchivementValue("");
   };
 
-  const onEnterClick = (e) => {
+  const onEnterClick = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       addAchievemnts();
     }
@@ -90,7 +100,7 @@ const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
   const onsubmit = () => {
     let currentEducationModal = {
       degree: degree,
-      university: selectedInstitue.label,
+      university: selectedInstitue?.label,
       achivements: achivements,
       startDate: startDate,
       endDate: endDate,
@@ -108,7 +118,9 @@ const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
           <label>Degree</label>
           <InputCustom
             value={degree}
-            onChange={(e) => setDegree(e.target.value)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setDegree(e.target.value)
+            }
           ></InputCustom>
         </div>
         <div className="flex justify-between">
@@ -123,17 +135,17 @@ const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
         <div className="flex justify-between">
           <label>Start Date</label>
           <div>
-            <DatePicker
+            <CustomDatePicker
               selected={startDate}
               onChange={(date: Date) => setStartDate(date)}
-              customInput={<InputCustom />}
+              customInput={<InputCustom></InputCustom>}
             />
           </div>
         </div>
         <div className="flex justify-between">
           <label>End Date</label>
           <div>
-            <DatePicker
+            <CustomDatePicker
               selected={endDate}
               onChange={(date: Date) => setEndDate(date)}
               customInput={<InputCustom />}
@@ -157,12 +169,16 @@ const EducationModal = ({ isModalOpen, changeModalState, onModalSubmit }) => {
         </div>
         <div className="flex justify-between">
           <label>Achivements</label>
-
-          <InputCustom
-            value={achivementInputValue}
-            onChange={(e) => setAchivementValue(e.target.value)}
-            onKeyDown={onEnterClick}
-          ></InputCustom>
+          <div className="space-x-1">
+            <InputCustom
+              value={achivementInputValue}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setAchivementValue(e.target.value)
+              }
+              onKeyDown={onEnterClick}
+            />
+            <span className="text-gray-500">↵</span>
+          </div>
         </div>
         <div>
           <CustomButton label="Submit" onClick={() => onsubmit()} />
