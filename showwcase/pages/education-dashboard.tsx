@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import EducationModal from "../components/Modal";
 import CustomButton from "../components/Button";
 import MainComponent from "../components/MainEducationSection";
@@ -34,6 +34,12 @@ const EducationDashboard = () => {
 
   const [selectedEducation, setSelectedEducation] = useState<Education>();
 
+  useEffect(() => {
+    if (educationList.length > 0) {
+      setSelectedEducation(educationList[0]);
+    }
+  }, [educationList]);
+
   const changeModalState = () => {
     setIsModalOpen((state) => !state);
   };
@@ -64,6 +70,7 @@ const EducationDashboard = () => {
         <Sidebar
           educationList={educationList}
           onSelectedEducationChange={onSelectedEducationChange}
+          selectedEducation={selectedEducation}
         />
         <MainComponent selectedEducation={selectedEducation} />
       </Grid>

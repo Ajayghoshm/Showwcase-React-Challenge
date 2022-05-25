@@ -1,4 +1,4 @@
-import * as dayjs from "dayjs";
+import dayjs from "dayjs";
 import styled from "styled-components";
 import { Education } from "../types";
 dayjs().format();
@@ -43,13 +43,15 @@ const MainComponent = ({ selectedEducation }: MainComponenrProps) => {
               <ul className="pl-4">
                 {selectedEducation.achivements.length !== 0 ? (
                   <>
-                    {selectedEducation.achivements.map((item, index) => {
-                      return (
-                        <li className="italic" key={index}>
-                          <span>&#8226;</span> {item}
-                        </li>
-                      );
-                    })}
+                    {selectedEducation.achivements.map(
+                      (item: any, index: number) => {
+                        return (
+                          <li className="italic" key={index}>
+                            <span>&#8226;</span> {item}
+                          </li>
+                        );
+                      }
+                    )}
                   </>
                 ) : (
                   <div>No achivements</div>

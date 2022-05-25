@@ -45,7 +45,7 @@ const EducationModal = ({
   const [selectOptions, setSelectOptions] = useState<string[]>([]);
   const [startDate, setStartDate] = useState<Date>(new Date());
   const [endDate, setEndDate] = useState<Date>(new Date());
-  const [achivementInputValue, setAchivementValue] = useState<string>();
+  const [achivementInputValue, setAchivementValue] = useState<string>("");
   const [achivements, setAchivements] = useState<string[]>([]);
 
   const fetcher = (...args: any) =>
