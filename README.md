@@ -1,5 +1,22 @@
 # Showwcase Developer Challenge
 
+## Deployed URL
+
+**IMPORTANT** : Please enable insecure content for netlify to access the http request for university list
+Refer : https://stackoverflow.com/a/24434461/9586519
+
+**Video Explanation**:
+https://www.loom.com/share/b14733bff1db42718330b15a70a68906
+
+**Deployed URL**:
+https://628e30030cb1401318a3321a--legendary-lily-da9998.netlify.app
+
+
+
+Used :  TypeScript, Styled components, Styled system, Hooks, React Modal,React SWR
+
+Custome usage : Tailwind, React-Select, React-datepicker
+
 ## General idea
 
 We hope to evaluate your programming skills in a project that has a very similar stack to ours, a preview of what you will be working with at Showwcase. 
